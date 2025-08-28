@@ -1,28 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Juegos</title>
-  </head>
-  <body>
-    
-    <nav>
-        <a href={% url "inicio" %}><b>Inicio</b></a>
-        <a href={% url "cargar_juego" %}><b>Cargar Videojuego</b></a>
-        <a href={% url "listado_de_juegos" %}><b>Listado de Videojuegos</b></a>
-    </nav>
+{% extends "base.html" %}
+{% block texto_h1 %} Lista de Videojuegos {% endblock texto_h1 %}
 
-    <h1>Lista de Videojuegos</h1>
+{% block contenido %}
 
-    {% if juegos %}
+    <form action="" method="GET"> 
+      
+        <h2>Buscar Videojuego</h2>
+        <p><b>Buscalo por nombre, desarrollador o categoria!</b></p>
+
+      {{formulario.as_p}}
+
+      <input type="submit" value="Buscar" />
+    </form>
+
+    <br>
+    <hr>
+
+{% if juegos %}
         
-        {% for juego in juegos %}
+    {% for juego in juegos %}
         <ul>
             <p><b>Nombre:</b> {{juego.nombre}} </p>
             <p><b>Desarrollador:</b> {{juego.desarrollador}} </p>
             <p><b>Categoria:</b> {{juego.categoria}} </p>
-            <p><b>Fecha de Lanzamiento:</b> {{juego.fecha_lanzamiento}} </p>
+            <p><a href={% url "detalle_juego" juego.id %}>Detalles</a> | <a href={% url "actualizar_juego" juego.id %}>Actualizar</a> | <a href={% url "borrar_juego" juego.id %}>Borrar</a></p>
         </ul>
         <hr>
         {% endfor %}
@@ -30,6 +31,7 @@
     {% else %}
         <p>No hay ningun juego cargado...</p>
     {% endif %}
+
+{% endblock contenido %}
+
     
-  </body>
-</html>

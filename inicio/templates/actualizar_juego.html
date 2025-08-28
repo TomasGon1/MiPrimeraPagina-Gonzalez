@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% block texto_h1 %} Carga tu Videojuego {% endblock texto_h1 %}
+{% block texto_h1 %} Actualizar Videojuego {% endblock texto_h1 %}
 
 {% block contenido %}
   
   <form action="" method="POST">
       {% csrf_token %} 
       
-      {{formulario.as_p}}
+      {{form.as_p}}
 
-      <input type="submit" value="Crear" />
+      <input type="submit" value="Actualizar" />
     </form>
   
 {% endblock contenido %}

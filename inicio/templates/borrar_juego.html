@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block texto_h1 %} Borrar Videojuego {% endblock texto_h1 %}
+
+{% block contenido %}
+  
+  <form action="" method="POST">
+      {% csrf_token %} 
+      
+      <h2>Desea eliminar {{object.nombre}}?</h2>
+
+      <input type="submit" value="Confirmar" />
+    </form>
+  
+{% endblock contenido %}
