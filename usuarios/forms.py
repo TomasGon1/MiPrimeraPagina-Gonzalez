@@ -37,8 +37,8 @@ class FormularioActualizacion(forms.ModelForm):
 
 class FormularioNuevaContraseña(PasswordChangeForm):
     old_password = forms.CharField(label="Contraseña Actual", widget = forms.PasswordInput, help_text='' )
-    new_password1 = forms.CharField(label="Contraseña Actual", widget = forms.PasswordInput, help_text='')
-    new_password2 = forms.CharField(label="Contraseña Actual", widget = forms.PasswordInput, help_text='')
+    new_password1 = forms.CharField(label="Nueva Contraseña", widget = forms.PasswordInput, help_text='')
+    new_password2 = forms.CharField(label="Confirmar Contraseña", widget = forms.PasswordInput, help_text='')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
