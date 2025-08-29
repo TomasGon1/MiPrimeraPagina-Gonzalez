@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block texto_h1 %} Cambiar Datos {% endblock texto_h1 %}
+
+{% block contenido %}
+
+  <h3>Actualizar Datos</h3>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{form_user.as_p}}
+    <button type="submit" name="actualizar_datos">Guardar Cambios</button>
+  </form>
+
+  <hr>
+  <h3>Cambiar Contraseña</h3>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{form_pass.as_p}}
+    <button type="submit" name="cambiar_contraseña">Actualizar Contraseña</button>
+  </form>
+  
+{% endblock contenido %}

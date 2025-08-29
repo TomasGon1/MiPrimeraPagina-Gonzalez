@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block texto_h1 %} Perfil de {{request.user.username}} {% endblock texto_h1 %}
+
+{% block contenido %}
+  
+  <ul>
+    <p><b>Nombre:</b> {{request.user.first_name}}</p>
+    <p><b>Apellido:</b> {{request.user.last_name}}</p>
+    <p><b>Email:</b> {{request.user.email}}</p>
+  </ul>
+
+  <br>
+  <hr>
+  <button><a href={% url "update_data" %}>Actualizar Datos</a></button>
+  
+{% endblock contenido %}

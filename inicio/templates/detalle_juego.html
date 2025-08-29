@@ -8,6 +8,11 @@
     <p><b>Descripcion:</b> {{juego.descripcion}}</p>
     <p><b>Categoria:</b> {{juego.categoria}}</p>
     <p><b>Fecha de Lanzamiento:</b> {{juego.fecha_lanzamiento}}</p>
+    {% if juego.imagen %}
+    <p><b>Imagen:</b> <img src={{juego.imagen.url}} alt="Imagen Videojuego" height='200px'></p>
+    {% else %}
+    <p>No hay imagen disponible...</p>
+    {% endif %}
   </ul>
   
 {% endblock contenido %}

@@ -1,24 +1,27 @@
 from django.shortcuts import render, redirect
 from inicio.models import Videojuegos
-from inicio.forms import FormularioVideojuegos, FormularioBuscarVideojuego
+from inicio.forms import FormularioVideojuegos, FormularioBuscarVideojuego, VideojuegoActualizar
 from django.db.models import Q
 from django.views.generic.edit import DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def inicio(request):
     
     return render(request, 'inicio.html')
 
+@login_required
 def cargar_juego(request):
     
     print(request.POST)
 
     if request.method == "POST":
-        formulario = FormularioVideojuegos(request.POST)
+        formulario = FormularioVideojuegos(request.POST, request.FILES)
         if formulario.is_valid():
             data = formulario.cleaned_data
 
-            juego = Videojuegos(nombre=data.get('nombre'), desarrollador=data.get('desarrollador'), descripcion=data.get('descripcion'), categoria=data.get('categoria'), fecha_lanzamiento=data.get('fecha_lanzamiento'))
+            juego = Videojuegos(nombre=data.get('nombre'), desarrollador=data.get('desarrollador'), descripcion=data.get('descripcion'), categoria=data.get('categoria'), fecha_lanzamiento=data.get('fecha_lanzamiento'), imagen=data.get('imagen'))
             juego.save()
 
             return redirect('listado_de_juegos')
@@ -51,13 +54,17 @@ def detalle_juego(request, id_juego):
     
     return render(request, 'detalle_juego.html', {'juego': juego} )
 
-class BorrarJuego(DeleteView):
+class BorrarJuego(LoginRequiredMixin, DeleteView):
     model = Videojuegos
     template_name = "borrar_juego.html"
     success_url = reverse_lazy('listado_de_juegos')
 
-class ActualizarJuego(UpdateView):
+class ActualizarJuego(LoginRequiredMixin, UpdateView):
     model = Videojuegos
+    form_class = VideojuegoActualizar
     template_name = "actualizar_juego.html"
     success_url = reverse_lazy('listado_de_juegos')
-    fields = '__all__'
+
+def acerca_de_mi(request):
+    return render(request, 'acerca_de_mi.html')    
+   

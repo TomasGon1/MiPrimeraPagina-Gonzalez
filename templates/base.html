@@ -7,9 +7,22 @@
 </head>
 <body>
     <nav>
-        <a href={% url "inicio" %}><b>Inicio</b></a>
-        <a href={% url "cargar_juego" %}><b>Cargar Videojuego</b></a>
-        <a href={% url "listado_de_juegos" %}><b>Listado de Videojuegos</b></a>
+        <a href={% url "inicio" %}><b>Inicio</b></a> |
+        <a href={% url "cargar_juego" %}><b>Cargar Videojuego</b></a> |
+        <a href={% url "listado_de_juegos" %}><b>Listado de Videojuegos</b></a> |
+        <a href={% url "acerca_de_mi" %}><b>Acerca de Mi</b></a> |
+
+
+        {% if request.user.is_authenticated %}
+            <a href={% url "profile" %}>{{request.user.username}}</a>
+            <form action={% url "logout" %} method="POST">
+                {% csrf_token %}
+                <p><input type="submit" value="Cerrar sesion"></p>
+            </form>
+        {% else %}
+            <a href={% url "login" %}><b>Iniciar Sesion</b></a> |
+            <a href={% url "register" %}><b>Registrarse</b></a>
+        {% endif %}
     </nav>
 
     <h1>{% block texto_h1 %}{% endblock texto_h1 %}</h1>
